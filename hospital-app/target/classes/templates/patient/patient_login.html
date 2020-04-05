@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/main_layout}">
+	<head>
+		<title>Patient Login</title>
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+	</head>
+	<body>
+		<div layout:fragment="content" class="container mySpace">
+			<ul class="breadcrumb">
+			  <li><a href="/choose_role">Choose Role</a></li>
+			  <li><a href="/patient_chosen">Patient Chosen</a></li>
+			  <li>Patient Login</li>
+			</ul>
+			<h2 style="text-align: center;">Patient Login</h2>
+			<div class="alert alert-danger" th:if="${actionMsg}">
+			   <h6 th:utext="${actionMsg}"></h6>
+			</div>
+	        <form th:action="@{/patient_login}" method="post" >
+	          	<h1 class="h3 mb-3 font-weight-normal">Log in</h1>
+	    		<label for="idnumber-login" class="sr-only">ID</label>
+	       		<input type="text" pattern="[1-9][0-9]{9}" title="The identification number consists of 10 positive digits." id="idnumber-login" name="idnumber-login" class="form-control" placeholder="Identification Number" required autofocus>
+	  			<br>
+	       		<button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+	  		</form>
+	    </div>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/main_layout}">
+	<head>
+		<title>Error</title>
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+	</head>
+	<body>
+		<div layout:fragment="content" class="container mySpace" style="text-align: center;">
+			<h2>Something went wrong :\</h2>
+			<hr />
+			<div class="container text-success">
+			   <h6>Manually refreshing the Doctor Page and the Patient Page is not allowed due to security reasons and they can only be accessed after (re)submitting the respective login form(s)!</h6>
+			</div>
+			<div class="form-group">
+				<b th:text="${errorMsg}"></b>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/main_layout}">
+	<head>
+		<title>Patient Page</title>
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+	</head>
+	<body>
+		<div layout:fragment="content" class="container mySpace" style="text-align: center;">
+			<ul class="breadcrumb">
+			  	<li><a href="/choose_role">Choose Role</a></li>
+			  	<li><a href="/patient_chosen">Patient Chosen</a></li>
+			  	<li><a href="/patient_login">Patient Login</a></li>
+			 	<li>Patient Page</li>
+		 	</ul>
+			<div class="alert alert-success" th:if="${loggedInPatientName}">
+			    <h6 th:text="'Welcome, ' + ${loggedInPatientName}"></h6>
+			</div>
+			<div class="alert alert-info" th:if="${infoChangedMsg}">
+				<h6 th:text="${infoChangedMsg}"></h6>
+			</div>
+			<form th:action="@{/update_patient_info}" role="form" method="post" th:object="${patient}">
+				<div class="form-horizontal">
+		        	<div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="name">Name</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                         <input type="text" pattern="^[a-zA-Z_]+( [a-zA-Z_]+)*$" title="Only text characters allowed!" th:field="*{patientName}" class="form-control" id="name" placeholder="New name value">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="idnumber">Identification Number</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                         <input type="text" pattern="[1-9][0-9]{9}" title="The identification number consists of 10 positive digits." th:field="*{patientIDNumber}" class="form-control" id="idnumber" placeholder="New identification number value">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="insured">Insured</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                         <input type="checkbox" th:field="*{patientInsured}" class="form-control" id="insured" placeholder="New insured value">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="doctorsList">GP</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"><strong></strong></i></div>
+			                         <select class="form-control" id="doctorsList" name="doctorsList">
+			                         	<option th:each="doctor : ${doctorsList}" th:value="${doctor.doctorId}" th:text="${doctor.doctorName} + ' - ' + ${doctor.doctorSpecialty}" th:selected="${doctor.doctorId} == ${patientDoctorId}"></option>
+			                         </select>
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="diagnosis">Diagnosis</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                         <input type="text" readonly class="form-control" id="diagnosis" placeholder="Current diagnosis" th:if="${patientDiagnosis}" th:value="${patientDiagnosis}">
+			                         <input type="text" readonly class="form-control" id="diagnosis" placeholder="Current diagnosis" th:unless="${patientDiagnosis}">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="medicines">Medicines</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                     	 <input type="text" readonly class="form-control" id="medicines" placeholder="Current medicines" th:if="${patientMedicines}" th:value="${patientMedicines}">
+			                         <input type="text" readonly class="form-control" id="medicines" placeholder="Current medicines" th:unless="${patientMedicines}">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="sickdays">Sick Days</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                     	 <input type="text" readonly class="form-control" id="sickdays" placeholder="Current sick days" th:value="${patientSickDays}">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="oldDiagnoses">Old Diagnoses</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                 	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                    	 <textarea readonly rows = "2" class="form-control" id="oldDiagnoses" name="oldDiagnoses" th:text="${patientOldDiagnoses}"></textarea>
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="oldMedicines">Old Medicines</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                 	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                     	 <textarea readonly rows = "2" class="form-control" id="oldMedicines" name="oldMedicines" th:text="${patientOldMedicines}"></textarea>
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="oldSickdays">Old Sick Days</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                     	 <input type="text" readonly class="form-control" id="oldSickdays" placeholder="Old sick days" th:value="${patientOldSickDays}">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+	         		 <a th:href="delete_patient">Delete Patient Account</a>
+	         		 <br><br>
+			         <div class="row">
+			             <div class="col-md-4"></div>
+			             <div class="col-md-4">
+			                 <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Submit</button>
+			                 <button type="reset" class="btn btn-success"><i class="fa fa-user-plus"></i> Reset</button>
+			             </div>
+			         </div>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

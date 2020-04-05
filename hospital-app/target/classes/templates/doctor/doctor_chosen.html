@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/main_layout}">
+	<head>
+		<title>Doctor Chosen</title>
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+	</head>
+	<body>
+		<div layout:fragment="content" class="container mySpace" style="text-align: center;">
+			<ul class="breadcrumb">
+			  <li><a href="/choose_role">Choose Role</a></li>
+			  <li>Doctor Chosen</li>
+			</ul>
+			<h2>Doctor</h2>
+			<hr />
+			<div class="form-group">
+				<form th:action="@{/doctor_login}" method="get">
+					<div class="col-md-12">
+						<button type="submit" class="btn btn-primary"><i class="fa fa-user-plus"></i> Login</button>
+					</div>
+				</form>
+				<br>
+				<form th:action="@{/doctor_register}" method="get">
+					<div class="col-md-12">
+						<button type="submit" class="btn btn-primary"><i class="fa fa-user-plus"></i> Register</button>
+					</div>
+				</form>
+		    </div>
+	    </div>
+	</body>
+</html>

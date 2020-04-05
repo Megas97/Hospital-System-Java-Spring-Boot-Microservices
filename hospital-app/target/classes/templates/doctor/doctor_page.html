@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/main_layout}">
+	<head>
+		<title>Doctor Page</title>
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+		<script type="text/javascript">
+			function setPatientInfo() {
+				var patientId = document.getElementById('doctorPatientsList').value;
+				var url = "http://localhost:8080/populate_patient_info/" + patientId;
+				window.location.href = url;
+			}
+			function setSelectedPatient() {
+				var isPatientIdPresent = "[[${patientId}]]";
+				if(isPatientIdPresent) {
+					document.getElementById('doctorPatientsList').value = isPatientIdPresent;
+				}
+			}
+		</script>
+	</head>
+	<body onload="setSelectedPatient();">
+		<div layout:fragment="content" class="container mySpace" style="text-align: center;">
+			<ul class="breadcrumb">
+			  	<li><a href="/choose_role">Choose Role</a></li>
+			  	<li><a href="/doctor_chosen">Doctor Chosen</a></li>
+			  	<li><a href="/doctor_login">Doctor Login</a></li>
+			 	<li>Doctor Page</li>
+		 	</ul>
+			<div class="alert alert-success" th:if="${loggedInDoctorName}">
+			    <h6 th:text="'Welcome, ' + ${loggedInDoctorName}"></h6>
+			</div>
+			<div class="alert alert-info" th:if="${infoChangedMsg}">
+				<h6 th:text="${infoChangedMsg}"></h6>
+			</div>
+			<div class="alert alert-danger" th:if="${infoDeleteMsg}">
+				<h6 th:text="${infoDeleteMsg}"></h6>
+			</div>
+			<form th:action="@{/update_doctor_info}" role="form" method="post" th:object="${doctor}">
+				<div class="form-horizontal">
+					<div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="name">Name</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                         <input type="text" pattern="^[a-zA-Z_]+( [a-zA-Z_]+)*$" title="Only text characters allowed!" th:field="*{doctorName}" class="form-control" id="name" placeholder="New name value">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="idnumber">Identification Number</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                         <input type="text" pattern="[1-9][0-9]{9}" title="The identification number consists of 10 positive digits." th:field="*{doctorIDNumber}" class="form-control" id="idnumber" placeholder="New identification number value">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="specialty">Specialty</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                         <input type="text" pattern="^[a-zA-Z_]+( [a-zA-Z_]+)*$" title="Only text characters allowed!" th:field="*{doctorSpecialty}" class="form-control" id="specialty" placeholder="New specialty value">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <a th:href="delete_doctor">Delete Doctor Account</a>
+	         		 <br><br>
+	         		 <div class="row">
+			             <div class="col-md-4"></div>
+			             <div class="col-md-4">
+			                 <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Submit</button>
+			                 <button type="reset" class="btn btn-success"><i class="fa fa-user-plus"></i> Reset</button>
+			             </div>
+			         </div>
+				</div>
+			</form>
+			<br><hr style="opacity: 0;"><hr><hr style="opacity: 0;"><br>
+			<div class="alert alert-info" th:if="${patientMedicalInfoChangedMsg}">
+				<h6 th:text="${patientMedicalInfoChangedMsg}"></h6>
+			</div>
+			<form th:action="@{/set_patient_medical_info}" role="form" method="post">
+				<div class="form-horizontal">
+					<div class="row">
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="doctorPatientsList">Patient</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"><strong></strong></i></div>
+			                         <select class="form-control" id="doctorPatientsList" name="doctorPatientsList" onchange="setPatientInfo();">
+			                         	<option th:each="patient : ${doctorPatientsList}" th:value="${patient.patientId}" th:text="${patient.patientName} + ' - ' + ${patient.patientIDNumber}"></option>
+			                         </select>
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="patientDiagnosis">Diagnosis</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                 	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                         <input type="text" pattern="^[a-zA-Z_]+( [a-zA-Z_]+)*$" title="Only text characters allowed!" class="form-control" id="patientDiagnosis" name="patientDiagnosis" placeholder="Patient diagnosis" th:if="${patientDiagnosis}" th:value="${patientDiagnosis}">
+			                         <input type="text" pattern="^[a-zA-Z_]+( [a-zA-Z_]+)*$" title="Only text characters allowed!" class="form-control" id="patientDiagnosis" name="patientDiagnosis" placeholder="Patient diagnosis" th:unless="${patientDiagnosis}">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="patientMedicines">Medicines</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                         <input type="text" pattern="^\w+((, \w+)+)?$" title="Medicine_1, Medicine_2, ..." class="form-control" id="patientMedicines" name="patientMedicines" placeholder="Patient medicines" th:if="${patientMedicines}" th:value="${patientMedicines}">
+			                         <input type="text" pattern="^\w+((, \w+)+)?$" title="Medicine_1, Medicine_2, ..." class="form-control" id="patientMedicines" name="patientMedicines" placeholder="Patient medicines" th:unless="${patientMedicines}">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="patientSickdays">Sick Days</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                         <input type="text" class="form-control" id="patientSickdays" name="patientSickdays" placeholder="Patient sick days" th:if="${patientSickdays}" th:value="${patientSickdays}">
+			                         <input type="text" class="form-control" id="patientSickdays" name="patientSickdays" placeholder="Patient sick days" th:unless="${patientSickdays}">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="patientOldDiagnoses">Old Diagnoses</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                 	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                     	 <textarea readonly rows = "2" class="form-control" id="patientOldDiagnoses" name="patientOldDiagnoses" th:text="${patientOldDiagnoses}"></textarea>
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="patientOldMedicines">Old Medicines</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                 	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                     	 <textarea readonly rows = "2" class="form-control" id="patientOldMedicines" name="patientOldMedicines" th:text="${patientOldMedicines}"></textarea>
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="patientOldSickdays">Old Sick Days</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                 	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                     	 <input type="text" readonly class="form-control" id="patientOldSickdays" name="patientOldSickdays" placeholder="Old sick days" th:value="${patientOldSickdays}">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-4"></div>
+			             <div class="col-md-4">
+			                 <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Submit</button>
+			                 <button type="reset" class="btn btn-success"><i class="fa fa-user-plus"></i> Reset</button>
+			             </div>
+			         </div>
+				</div>
+			</form>
+			<br><hr style="opacity: 0;"><hr><hr style="opacity: 0;"><br>
+			<div class="alert alert-info" th:if="${patientDiagnosisSearchMsg}">
+				<h6 th:text="${patientDiagnosisSearchMsg}"></h6>
+			</div>
+			<form th:action="@{/get_patients_by_diagnosis}" role="form" method="post">
+				<div class="form-horizontal">
+					<div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="patientDiagnosisSearchInput">Search Patients By Diagnosis</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                 	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                         <input type="text" pattern="^[a-zA-Z_]+( [a-zA-Z_]+)*$" title="Only text characters allowed!" class="form-control" id="patientDiagnosisSearchInput" name="patientDiagnosisSearchInput" placeholder="Patient diagnosis" th:if="${patientDiagnosisSearchInput}" th:value="${patientDiagnosisSearchInput}">
+			                         <input type="text" pattern="^[a-zA-Z_]+( [a-zA-Z_]+)*$" title="Only text characters allowed!" class="form-control" id="patientDiagnosisSearchInput" name="patientDiagnosisSearchInput" placeholder="Patient diagnosis" th:unless="${patientDiagnosisSearchInput}">
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row" >
+			             <div class="col-md-4 field-label-responsive" style="text-align: left;">
+			                 <label for="patientDiagnosisSearchTextArea">Patients With Given Diagnosis</label>
+			             </div>
+			             <div class="col-md-8">
+			                 <div class="form-group">
+			                 	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+			                         <textarea readonly rows = "20" class="form-control" id="patientDiagnosisSearchTextArea" name="patientDiagnosisSearchTextArea" th:if="${patientsWithDiagnosis}" th:text="${#strings.replace(#strings.replace(#strings.replace(patientsWithDiagnosis,'[',''),']',''),', ','&#13;')}"></textarea>
+			                     	 <textarea readonly rows = "20" class="form-control" id="patientDiagnosisSearchTextArea" name="patientDiagnosisSearchTextArea" th:unless="${patientsWithDiagnosis}"></textarea>
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+					<div class="row">
+			             <div class="col-md-4"></div>
+			             <div class="col-md-4">
+			                 <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Search</button>
+			                 <button type="reset" class="btn btn-success"><i class="fa fa-user-plus"></i> Reset</button>
+			             </div>
+			         </div>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
