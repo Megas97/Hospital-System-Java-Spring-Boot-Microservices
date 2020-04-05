@@ -1,0 +1,41 @@
+Java Spring Boot Microservices Tutorial YouTube: https://www.youtube.com/watch?v=bXEBK6hhZXk&list=PL9l1zUfnZkZnW828ZmQBFTPCCoc5y6Ycg
+Java Spring Boot Microservices Tutorial GitHub: https://github.com/varunu28/Hospital-Microservice
+
+Bootswatch: https://bootswatch.com
+HTML radio buttons: https://www.w3schools.com/html/tryit.asp?filename=tryhtml_radio
+Get form value in controller: https://stackoverflow.com/questions/7524629/how-to-get-a-form-value-in-a-controller
+Make @RequestParam optional: https://stackoverflow.com/questions/22373696/requestparam-in-spring-mvc-handling-optional-parameters
+Missing Spring Security version: https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4/2.1.2.RELEASE
+Disable default Spring Security: https://stackoverflow.com/questions/48902706/spring-cloud-eureka-with-spring-security
+Java Spring Boot Cookies: https://dzone.com/articles/how-to-use-cookies-in-spring-boot
+Thymeleaf 'selected' option: https://www.baeldung.com/thymeleaf-select-option
+RestTemplate DELETE: https://www.baeldung.com/rest-template
+Thymeleaf 'th:text' Literal substitutions: https://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html
+Bootstrap alerts: https://getbootstrap.com/docs/4.0/components/alerts/
+Populate dropdown list via Java Spring Boot: https://stackoverflow.com/questions/37715276/how-do-i-populate-a-drop-down-with-a-list-using-thymeleaf-and-spring
+HTML pattern attribute: https://www.w3schools.com/tags/att_input_pattern.asp
+Accept comma separated (1, 2) values only: https://stackoverflow.com/questions/17311345/regex-pattern-accepting-comma-or-semicolon-separated-values
+Thymeleaf if-else: https://stackoverflow.com/questions/13494078/how-to-do-if-else-in-thymeleaf
+Call Spring Boot function via JavaScript & HTML onchange: https://stackoverflow.com/questions/25080593/how-to-call-spring-mvc-portlet-controller-method-by-selecting-value-from-a-dropd
+Access Spring Boot objects in JavaScript: https://www.baeldung.com/spring-mvc-model-objects-js
+JavaScript condition based on Thymeleaf variable: https://stackoverflow.com/questions/45635763/thymeleaf-conditional-javascript-function-call
+Allow only text & space between words: https://stackoverflow.com/questions/15472764/regular-expression-to-allow-spaces-between-words
+<input type="number"> pattern attribute: https://stackoverflow.com/questions/33411753/how-to-use-a-pattern-on-an-inputtype-number
+Allow only positive numbers: https://stackoverflow.com/questions/7036324/what-is-the-regex-for-any-positive-integer-excluding-0
+Match 10 digits: https://stackoverflow.com/questions/4685500/regular-expression-for-10-digit-number-without-any-special-characters
+Change Thymeleaf templates directory: https://www.baeldung.com/spring-thymeleaf-template-directory
+HTML <textarea> tag: https://www.w3schools.com/tags/tag_textarea.asp
+Thymeleaf string replace: https://www.baeldung.com/spring-thymeleaf-3-expressions
+Thymeleaf multiple string replace: http://forum.thymeleaf.org/replace-multiple-characters-in-a-string-td4027639.html
+Set element opacity CSS: https://www.w3schools.com/cssref/css3_pr_opacity.asp
+HTML code for newline: https://www.quora.com/What-is-the-HTML-code-for-new-line
+Bootstrap buttons: https://getbootstrap.com/docs/4.0/components/buttons/
+HTML Breadcrumbs: https://www.w3schools.com/howto/howto_css_breadcrumbs.asp
+Center <li> items inside <ul> element: https://stackoverflow.com/questions/8641251/how-do-i-center-list-items-inside-a-ul-element
+Multiple @RequestMapping annotations Spring Boot: https://stackoverflow.com/questions/2513031/multiple-spring-requestmapping-annotations
+Custom error page Spring Boot: https://www.baeldung.com/spring-boot-custom-error-page
+HTTP Status Codes: https://developer.mozilla.org/bg/docs/Web/HTTP/Status
+Change favicon in Spring Boot: https://www.baeldung.com/spring-boot-favicon
+XAMPP Port 80 in use by "Unable to open process": https://stackoverflow.com/questions/34336604/xampp-port-80-in-use-by-unable-to-open-process-with-pid-12448
+'No compiler is provided in this environment' fix: https://stackoverflow.com/questions/19655184/no-compiler-is-provided-in-this-environment-perhaps-you-are-running-on-a-jre-ra
+@RequestParam attributes: https://stackoverflow.com/questions/42326686/requestparam-name-vs-value-attributes

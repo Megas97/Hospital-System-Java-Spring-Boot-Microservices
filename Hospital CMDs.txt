@@ -1,0 +1,29 @@
+Doctor
+
+Create doctor: http://localhost:8081/doctors/create - {"doctorName":"Mira","doctorIDNumber":"1234567890","doctorSpecialty":"Lungs"} - POST
+View doctor by id: http://localhost:8081/doctors/get-by-id/1 - GET
+View doctor by id number: http://localhost:8081/doctors/get-by-id-number/1234567890 - GET
+View all doctors: http://localhost:8081/doctors/get/all - GET
+Delete doctor by id: http://localhost:8081/doctors/delete/1 - DELETE
+Update doctor name: http://localhost:8081/doctors/1/update-name/Ivan - PUT
+Update doctor specialty: http://localhost:8081/doctors/1/update-specialty/Heart - PUT
+-------------------------------------------------------------------------------------------------------------
+Patient
+
+Create patient: http://localhost:8082/patients/create - {"patientName":"Nadia","patientIDNumber":"9403145060","patientInsured":true,"doctorId":5} - POST
+View patient by id: http://localhost:8082/patients/get-by-id/1 - GET
+View patient by id number: http://localhost:8082/patients/get-by-id-number/9702117045 - GET
+View all patients: http://localhost:8082/patients/get/all - GET
+Delete patient by id: http://localhost:8082/patients/delete/1 - DELETE
+Set patient doctor: http://localhost:8082/patients/1/set-doctor/5 - PUT
+Update patient name: http://localhost:8082/patients/1/update-name/Nikol - PUT
+Update patient id number: http://localhost:8082/patients/1/update-id-number/9203304570 - PUT
+Update patient insured status: http://localhost:8082/patients/1/update-insured-status/false - PUT
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Set patient diagnosis: http://localhost:8082/patients/1/set-patient-diagnosis/Insult - PUT
+Get patients with diagnosis: http://localhost:8082/patients/get-patients-with-diagnosis/Insult - GET
+Remove patient diagnosis: http://localhost:8082/patients/1/remove-patient-diagnosis - PUT
+Set patient sickdays: http://localhost:8082/patients/1/set-patient-sickdays/10 - PUT
+Set patient medicine: http://localhost:8082/patients/1/set-patient-medicine/Aspirine - PUT
+Remove patient medicines: http://localhost:8082/patients/1/remove-patient-medicines - PUT
+-------------------------------------------------------------------------------------------------------------
